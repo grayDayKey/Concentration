@@ -25,7 +25,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aya-ES-1CP">
-                                <rect key="frame" x="183" y="477" width="74" height="29"/>
+                                <rect key="frame" x="75" y="477" width="269" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
@@ -69,6 +69,14 @@
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <connections>
                                     <action selector="touchCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zo4-ni-z1C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UCu-pg-C9s">
+                                <rect key="frame" x="152" y="414" width="115" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="New game"/>
+                                <connections>
+                                    <action selector="starNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dg-I3-ciO"/>
                                 </connections>
                             </button>
                         </subviews>

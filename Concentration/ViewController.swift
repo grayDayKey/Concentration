@@ -9,7 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+    var game: Concentration!
+    private var emojiChoices: [String]!
+    
+    private var emoji: [Int:String]!
     
     private var flipCount = 0 {
         didSet {
@@ -17,12 +20,12 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @IBOutlet weak var flipCountLabel: UILabel!
     
     @IBOutlet var cardButtons: [UIButton]!
     
     override func viewDidLoad() {
+        startNewGame()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -33,6 +36,22 @@ class ViewController: UIViewController {
             game.chooseCard(at: buttonIndex)
             updateViewFromModel()
         }
+    }
+    
+    @IBAction func starNewGame(_ sender: UIButton) {
+        startNewGame()
+    }
+    
+    private func getNumberOfPairsOfCards() -> Int {
+        return (cardButtons.count + 1) / 2
+    }
+    
+    private func startNewGame() {
+        game = Concentration(numberOfPairsOfCards: getNumberOfPairsOfCards())
+        emojiChoices = ["👻", "🎃", "💀", "🙀", "🦊", "🐸"]
+        emoji = [Int:String]()
+        flipCount = 0
+        updateViewFromModel()
     }
     
     private func updateViewFromModel() {
@@ -49,10 +68,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    private var emojiChoices = ["👻", "🎃", "💀", "🙀", "🦊", "🐸"]
-    
-    private var emoji = [Int:String]()
     
     private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil, emojiChoices.count > 0 {
