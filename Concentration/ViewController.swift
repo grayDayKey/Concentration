@@ -14,12 +14,6 @@ class ViewController: UIViewController {
     
     private var emoji: [Int:String]!
     
-    private var flipCount = 0 {
-        didSet {
-            flipCountLabel.text = "Flips \(flipCount)"
-        }
-    }
-    
     @IBOutlet weak var flipCountLabel: UILabel!
     
     @IBOutlet var cardButtons: [UIButton]!
@@ -31,7 +25,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func touchCard(_ sender: UIButton) {
-        flipCount += 1
         if let buttonIndex = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: buttonIndex)
             updateViewFromModel()
@@ -50,7 +43,6 @@ class ViewController: UIViewController {
         game = Concentration(numberOfPairsOfCards: getNumberOfPairsOfCards())
         emojiChoices = ["👻", "🎃", "💀", "🙀", "🦊", "🐸"]
         emoji = [Int:String]()
-        flipCount = 0
         updateViewFromModel()
     }
     
@@ -67,6 +59,11 @@ class ViewController: UIViewController {
                 button.backgroundColor = card.isMatched ? .clear : .orange
             }
         }
+        updateFlipCountUi(flipCount: game.getFlipCount())
+    }
+    
+    private func updateFlipCountUi(flipCount: Int) {
+        flipCountLabel.text = "Flips \(flipCount)"
     }
     
     private func emoji(for card: Card) -> String {
