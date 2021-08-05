@@ -13,33 +13,95 @@ class Concentration {
     
     var indexOfOneAndOnlyFaceUpCard: Int?
     
+    private var score: Int = 0
+    
     private var flipCount: Int = 0
     
     func getFlipCount() -> Int {
         return flipCount
     }
     
+    func getScore() -> Int {
+        return score
+    }
+    
     func chooseCard(at index: Int) {
         if !cards[index].isMatched {
-            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
-                // check if cards match
-                if (cards[matchIndex].identifier == cards[index].identifier) {
-                    cards[index].isMatched = true
-                    cards[matchIndex].isMatched = true
-                }
-                cards[index].isFaceUp = true
-                indexOfOneAndOnlyFaceUpCard = nil
-            } else {
-                // no cards or 2 cards are face up
-                for flipDownIndex in cards.indices {
-                    cards[flipDownIndex].isFaceUp = false
+            if checkIfOnlyOneCardFaceUp(chosenCardAt: index) {
+                
+                if let matchIndex = indexOfOneAndOnlyFaceUpCard {
+                    
+                    if (match(cardAt: index, withAnotherCardAt: matchIndex)) {
+                        onMatch(ofCardAt: index, withAnotherCardAt: matchIndex)
+                    } else {
+                        onMismatch(ofCardAt: index, withAnotherCardAt: matchIndex)
+                    }
+                    
+                    faceUpOneCard(at: index, andOnlyOne: false)
+                    markCardAsSeen(at: matchIndex)
                 }
                 
-                cards[index].isFaceUp = true
-                indexOfOneAndOnlyFaceUpCard = index
+                markCardAsSeen(at: index)
+                
+            } else {
+                flipDownAllCards()
+                faceUpOneCard(at: index, andOnlyOne: true)
             }
-            flipCount += 1
+            incrementFlipCount()
         }
+    }
+    
+    
+    private func incrementFlipCount() {
+        flipCount += 1
+    }
+    
+    private func incrementScore() {
+        score += 2
+    }
+    
+    private func decrementScore() {
+        score -= 1
+    }
+    
+    private func markCardAsSeen(at index: Int) {
+        cards[index].isPreviouslySeen = true
+    }
+    
+    private func checkIfOnlyOneCardFaceUp(chosenCardAt index: Int) -> Bool {
+        if let matchIndex = indexOfOneAndOnlyFaceUpCard {
+            return matchIndex != index
+        }
+        
+        return false
+    }
+    
+    private func match(cardAt index: Int, withAnotherCardAt anotherIndex: Int) -> Bool {
+        return cards[index].identifier == cards[anotherIndex].identifier
+    }
+    
+    private func onMatch(ofCardAt index: Int, withAnotherCardAt anotherIndex: Int) {
+        cards[index].isMatched = true
+        cards[anotherIndex].isMatched = true
+        incrementScore()
+    }
+    
+    private func onMismatch(ofCardAt index: Int, withAnotherCardAt anotherIndex: Int) {
+        if (cards[index].isPreviouslySeen || cards[anotherIndex].isPreviouslySeen) {
+            decrementScore()
+        }
+    }
+    
+    private func flipDownAllCards() {
+        // no cards or 2 cards are face up
+        for flipDownIndex in cards.indices {
+            cards[flipDownIndex].isFaceUp = false
+        }
+    }
+    
+    private func faceUpOneCard(at index: Int, andOnlyOne: Bool) {
+        cards[index].isFaceUp = true
+        indexOfOneAndOnlyFaceUpCard = andOnlyOne ? index : nil
     }
     
     init(numberOfPairsOfCards: Int) {

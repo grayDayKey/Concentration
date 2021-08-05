@@ -79,12 +79,20 @@
                                     <action selector="starNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dg-I3-ciO"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqP-NM-2MN">
+                                <rect key="frame" x="75" y="525" width="269" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="aya-ES-1CP" id="7bV-Ev-hgC"/>
+                        <outlet property="scoreLabel" destination="aqP-NM-2MN" id="noX-cO-K20"/>
                         <outletCollection property="cardButtons" destination="rep-nj-wDD" collectionClass="NSMutableArray" id="PMD-GJ-ene"/>
                         <outletCollection property="cardButtons" destination="kRU-pE-HFH" collectionClass="NSMutableArray" id="upg-QM-mTy"/>
                         <outletCollection property="cardButtons" destination="gCx-k4-8pc" collectionClass="NSMutableArray" id="Mgs-Za-dEk"/>

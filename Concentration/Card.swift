@@ -11,10 +11,16 @@ struct Card {
     
     var isFaceUp = false
     var isMatched = false
+    var isPreviouslySeen = false
+    
     var identifier: Int
     
     init() {
         self.identifier = Card.getUniqueIdentifier()
+    }
+    
+    func match(withOther card: Card) -> Bool {
+        return self.identifier == card.identifier
     }
     
     private static func getUniqueIdentifier() -> Int {

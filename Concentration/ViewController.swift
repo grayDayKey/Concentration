@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     private var emoji: [Int:String]!
     
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var flipCountLabel: UILabel!
     
     @IBOutlet var cardButtons: [UIButton]!
@@ -60,10 +61,15 @@ class ViewController: UIViewController {
             }
         }
         updateFlipCountUi(flipCount: game.getFlipCount())
+        updateScoreUi(score: game.getScore())
     }
     
     private func updateFlipCountUi(flipCount: Int) {
         flipCountLabel.text = "Flips \(flipCount)"
+    }
+    
+    private func updateScoreUi(score: Int) {
+        scoreLabel.text = "Score: \(score)"
     }
     
     private func emoji(for card: Card) -> String {
