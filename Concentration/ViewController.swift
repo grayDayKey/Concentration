@@ -10,7 +10,17 @@ import UIKit
 class ViewController: UIViewController {
     
     var game: Concentration!
-    private var emojiChoices: [String]!
+    
+    private var theme: [String]!
+    
+    private let themes = [
+        "sport": ["🏀", "🏒", "🥎", "🥊", "⛸", "🪂"],
+        "animals": ["🐶", "🐵", "🐻", "🦊", "🐸", "🐔"],
+        "faces": ["😀", "🧐", "😡", "😱", "🤢", "💩"],
+        "nature": ["🌹", "🍂", "🍁", "🌿", "🍀", "🌲"],
+        "astronomy": ["🌞", "🌘", "🌎", "🪐", "☄️", "💫", "🌔"],
+        "weather": ["☀️", "🌤", "🌧", "❄️", "🌩", "🌈"]
+    ]
     
     private var emoji: [Int:String]!
     
@@ -42,9 +52,13 @@ class ViewController: UIViewController {
     
     private func startNewGame() {
         game = Concentration(numberOfPairsOfCards: getNumberOfPairsOfCards())
-        emojiChoices = ["👻", "🎃", "💀", "🙀", "🦊", "🐸"]
+        initTheme()
         emoji = [Int:String]()
         updateViewFromModel()
+    }
+    
+    private func initTheme() {
+        theme = themes[themes.keys.randomElement()!]
     }
     
     private func updateViewFromModel() {
@@ -73,10 +87,11 @@ class ViewController: UIViewController {
     }
     
     private func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
-            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+        if emoji[card.identifier] == nil, theme.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(theme.count)))
+            emoji[card.identifier] = theme.remove(at: randomIndex)
         }
+        
         return emoji[card.identifier] ?? "?"
     }
 }
