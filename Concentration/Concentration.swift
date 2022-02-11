@@ -11,7 +11,20 @@ class Concentration {
     
     var cards = [Card]()
     
-    var indexOfOneAndOnlyFaceUpCard: Int?
+    var indexOfOneAndOnlyFaceUpCard: Int? {
+        
+        get {
+            let onlyFaceUpCardsIndecies = cards.indices.filter { cards[$0].isFaceUp }
+            
+            return onlyFaceUpCardsIndecies.count == 1 ? onlyFaceUpCardsIndecies.first : nil
+        }
+        
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
+            }
+        }
+    }
     
     private var score: Int = 0
     
@@ -37,15 +50,14 @@ class Concentration {
                         onMismatch(ofCardAt: index, withAnotherCardAt: matchIndex)
                     }
                     
-                    faceUpOneCard(at: index, andOnlyOne: false)
+                    faceUpOneCard(at: index)
                     markCardAsSeen(at: matchIndex)
                 }
                 
                 markCardAsSeen(at: index)
                 
             } else {
-                flipDownAllCards()
-                faceUpOneCard(at: index, andOnlyOne: true)
+                indexOfOneAndOnlyFaceUpCard = index
             }
             incrementFlipCount()
         }
@@ -99,9 +111,8 @@ class Concentration {
         }
     }
     
-    private func faceUpOneCard(at index: Int, andOnlyOne: Bool) {
+    private func faceUpOneCard(at index: Int) {
         cards[index].isFaceUp = true
-        indexOfOneAndOnlyFaceUpCard = andOnlyOne ? index : nil
     }
     
     init(numberOfPairsOfCards: Int) {
