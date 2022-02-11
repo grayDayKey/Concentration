@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var game: Concentration!
+    private var game: Concentration!
     
     private var theme: [String]!
     
@@ -24,10 +24,10 @@ class ViewController: UIViewController {
     
     private var emoji: [Int:String]!
     
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var scoreLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
     override func viewDidLoad() {
         startNewGame()
@@ -46,12 +46,12 @@ class ViewController: UIViewController {
         startNewGame()
     }
     
-    private func getNumberOfPairsOfCards() -> Int {
+    private var numberOfPairsOfCards: Int {
         return (cardButtons.count + 1) / 2
     }
     
     private func startNewGame() {
-        game = Concentration(numberOfPairsOfCards: getNumberOfPairsOfCards())
+        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
         initTheme()
         emoji = [Int:String]()
         updateViewFromModel()
