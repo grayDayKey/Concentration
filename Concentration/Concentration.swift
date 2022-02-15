@@ -11,7 +11,7 @@ class Concentration {
     
     var cards = [Card]()
     
-    var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
         
         get {
             let onlyFaceUpCardsIndecies = cards.indices.filter { cards[$0].isFaceUp }
@@ -26,19 +26,12 @@ class Concentration {
         }
     }
     
-    private var score: Int = 0
+    private(set) var score: Int = 0
     
-    private var flipCount: Int = 0
-    
-    func getFlipCount() -> Int {
-        return flipCount
-    }
-    
-    func getScore() -> Int {
-        return score
-    }
+    private(set) var flipCount: Int = 0
     
     func chooseCard(at index: Int) {
+        assert(cards.indices.contains(index), "Concentration.choseCard(at: \(index)): chosen index is not in the cards")
         if !cards[index].isMatched {
             if !checkIfOnlyOneCardFaceUp(chosenCardAt: index) {
                 
@@ -89,7 +82,7 @@ class Concentration {
     }
     
     private func match(cardAt index: Int, withAnotherCardAt anotherIndex: Int) -> Bool {
-        return cards[index].identifier == cards[anotherIndex].identifier
+        return cards[index].match(withOther: cards[anotherIndex])
     }
     
     private func onMatch(ofCardAt index: Int, withAnotherCardAt anotherIndex: Int) {
@@ -116,6 +109,7 @@ class Concentration {
     }
     
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards > 0, "Concentration.init(\(numberOfPairsOfCards)): you must have at least one pair of cards")
         for _ in 1...numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]

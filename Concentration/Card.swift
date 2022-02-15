@@ -13,7 +13,7 @@ struct Card {
     var isMatched = false
     var isPreviouslySeen = false
     
-    var identifier: Int
+    private var identifier: Int
     
     init() {
         self.identifier = Card.getUniqueIdentifier()

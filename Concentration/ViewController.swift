@@ -35,18 +35,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         if let buttonIndex = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: buttonIndex)
             updateViewFromModel()
         }
     }
     
-    @IBAction func starNewGame(_ sender: UIButton) {
+    @IBAction private func starNewGame(_ sender: UIButton) {
         startNewGame()
     }
     
-    private var numberOfPairsOfCards: Int {
+    var numberOfPairsOfCards: Int {
         return (cardButtons.count + 1) / 2
     }
     
