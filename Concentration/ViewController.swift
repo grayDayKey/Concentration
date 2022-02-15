@@ -74,8 +74,8 @@ class ViewController: UIViewController {
                 button.backgroundColor = card.isMatched ? .clear : .orange
             }
         }
-        updateFlipCountUi(flipCount: game.getFlipCount())
-        updateScoreUi(score: game.getScore())
+        updateFlipCountUi(flipCount: game.flipCount)
+        updateScoreUi(score: game.score)
     }
     
     private func updateFlipCountUi(flipCount: Int) {
